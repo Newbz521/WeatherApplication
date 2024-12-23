@@ -8,14 +8,14 @@ body {
     height: 100dvh;
     width: 100dvw;
     margin: 0;
-
 }
 
 #weather-container {
     background: rgba(255, 255, 255, 0.4);
     /* max-width: 400px; */
     width: 80%;
-    padding: 20px;
+    padding: 10px;
+    height: fit-content;
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
@@ -54,7 +54,7 @@ button:hover {
 }
 
 #temp-div p {
-    font-size: 60px;
+    font-size: 40px;
     margin-top: -30px;
 }
 
@@ -89,8 +89,8 @@ button:hover {
 }
 
 .hourly-item img {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     margin-bottom: 5px;
 }
 
