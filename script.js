@@ -1,14 +1,18 @@
-function getWeather() {
-    const apiKey = 'YOUR-API-KEY';
-    const city = document.getElementById('city').value;
+const myCity = 'New York'
+
+function getWeather(myCity) {
+    const apiKey = 'a8ae4594e4c5eb85f398c6452ef4a705';
+    // const city = document.getElementById('city').value;
+    const city = myCity
 
     if (!city) {
         alert('Please enter a city');
         return;
     }
 
-    const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+  
+    const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${myCity}&appid=${apiKey}`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${myCity}&appid=${apiKey}`;
 
     fetch(currentWeatherUrl)
         .then(response => response.json())
@@ -36,23 +40,24 @@ function displayWeather(data) {
     const weatherInfoDiv = document.getElementById('weather-info');
     const weatherIcon = document.getElementById('weather-icon');
     const hourlyForecastDiv = document.getElementById('hourly-forecast');
-
+    const outFitInfo = document.getElementById('dress-code')
     // Clear previous content
     weatherInfoDiv.innerHTML = '';
     hourlyForecastDiv.innerHTML = '';
-    tempDivInfo.innerHTML = '';
+  tempDivInfo.innerHTML = '';
+  outFitInfo.innerHTML = '';
 
     if (data.cod === '404') {
         weatherInfoDiv.innerHTML = `<p>${data.message}</p>`;
     } else {
         const cityName = data.name;
-        const temperature = Math.round(data.main.temp - 273.15); // Convert to Celsius
+        const temperature =  Math.round((data.main.temp - 273.15) * 9/5 + 32); // Convert to Celsius
         const description = data.weather[0].description;
         const iconCode = data.weather[0].icon;
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
 
         const temperatureHTML = `
-            <p>${temperature}°C</p>
+            <p>${temperature}°F</p>
         `;
 
         const weatherHtml = `
@@ -63,7 +68,22 @@ function displayWeather(data) {
         tempDivInfo.innerHTML = temperatureHTML;
         weatherInfoDiv.innerHTML = weatherHtml;
         weatherIcon.src = iconUrl;
-        weatherIcon.alt = description;
+      weatherIcon.alt = description;
+       if (temperature > 50 && temperature < 60) {
+          outFitInfo.innerHTML = 'Green Adidas'
+        }
+        else if (temperature > 40 && temperature < 50) {
+          outFitInfo.innerHTML = 'White Sheep Jacket';
+          
+        }
+        else if (temperature < 40 && temperature > 31) {
+          outFitInfo.innerHTML = 'Burberry Down Jacket';
+          
+        }
+        else if (temperature < 32) {
+          outFitInfo.innerHTML = 'Burberry Down Jacket + Scarf';
+          
+        }
 
         showImage();
     }
@@ -77,7 +97,7 @@ function displayHourlyForecast(hourlyData) {
     next24Hours.forEach(item => {
         const dateTime = new Date(item.dt * 1000); // Convert timestamp to milliseconds
         const hour = dateTime.getHours();
-        const temperature = Math.round(item.main.temp - 273.15); // Convert to Celsius
+        const temperature =  Math.round((item.main.temp - 273.15) * 9/5 + 32); // Convert to Celsius
         const iconCode = item.weather[0].icon;
         const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
 
@@ -85,7 +105,7 @@ function displayHourlyForecast(hourlyData) {
             <div class="hourly-item">
                 <span>${hour}:00</span>
                 <img src="${iconUrl}" alt="Hourly Weather Icon">
-                <span>${temperature}°C</span>
+                <span>${temperature}°F</span>
             </div>
         `;
 
@@ -97,3 +117,5 @@ function showImage() {
     const weatherIcon = document.getElementById('weather-icon');
     weatherIcon.style.display = 'block'; // Make the image visible once it's loaded
 }
+
+getWeather(myCity)
