@@ -1,5 +1,5 @@
 body {
-    background: #e597ff;
+    background: #bfabff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     align-items: center;
@@ -100,6 +100,32 @@ button:hover {
 }
 
 #dress-code {
-  color: white;
+  /* color: white; */
+  color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #5748f5,
+    0 0 82px #5748f5;
   font-size: 20px;
+  animation: pulse 1s infinite;
+}
+
+h3{
+  color: white;
+}
+
+
+
+@keyframes pulse {
+  0%{
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
